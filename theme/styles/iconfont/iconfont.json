@@ -1,0 +1,51 @@
+{
+  "id": "1597809",
+  "name": "vuepress-theme-ic",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "469282",
+      "name": "qq",
+      "font_class": "qq",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "3833255",
+      "name": "验证-简书",
+      "font_class": "yanzheng-jianshu",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "4142327",
+      "name": "微博",
+      "font_class": "weibo",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "6905420",
+      "name": "码云",
+      "font_class": "mayun",
+      "unicode": "e6d0",
+      "unicode_decimal": 59088
+    },
+    {
+      "icon_id": "8051632",
+      "name": "知乎",
+      "font_class": "zhihu-copy",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "11983543",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "ea0b",
+      "unicode_decimal": 59915
+    }
+  ]
+}
