@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { utcToTime } from "../util/util.js";
+import { utcToTime, changeStyle, changeShowStatus } from "../util/util.js";
 
 export default {
   name: "NoteList",
@@ -58,6 +58,10 @@ export default {
       return utcToTime(value);
     }
   },
+  mounted() {
+    changeStyle(document.body.clientWidth);
+    changeShowStatus(document.body.clientWidth);
+  },
   methods: {
     changeStatus() {
       let childElements = event.currentTarget.parentElement.children;
@@ -75,17 +79,29 @@ export default {
         "class",
         event.currentTarget.getAttribute("class").concat(" actived")
       );
+
+      changeShowStatus(document.body.clientWidth);
     }
   }
 };
 </script>
 <style src="../styles/note.styl" lang="stylus"></style>
 <style lang="stylus">
+.note-list_hide 
+  display none !important
+.note-list_1200
+    position fixed !important
+    left 160px
+    top 0
+    z-index 10 !important
+.note-list_510
+    width calc(100% - 160px) !important
+    overflow-x hidden !important
 .note-list
   height 100%
   display inline-block
   float left
-  width 22rem
+  width 350px
   overflow auto
   border-right 1px solid #E0E1E5
   background-color #ffffff

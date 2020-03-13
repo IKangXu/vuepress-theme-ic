@@ -1,7 +1,7 @@
 <template>
   <div class="note-sidebar" v-if="open">
     <!-- 触发条件 -->
-    <i class="item-icon iconfont iconsidebar-up" @click="showSidebar"></i>
+    <i class="item-icon iconfont iconcaidan" @click="showSidebar"></i>
     <!-- 目录 -->
     <div class="sidebar-container" v-if="sidebar.show">
       <h3>目录</h3>
@@ -124,7 +124,7 @@ export default {
         position fixed
         z-index 4
         right 1rem
-        top 1rem
+        top 4rem
         color #ffffff
         background-color #000000
         padding .5rem
@@ -135,7 +135,7 @@ export default {
         z-index 4
         width 10rem
         right 0
-        top 4rem
+        top 7rem
         padding .5rem 1rem
         background-color rgba(0,0,0,.7)
         h3

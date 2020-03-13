@@ -36,6 +36,7 @@
 <script>
 import NoteNav from "@theme/components/NoteNav.vue";
 import Bus from "../util/bus.js";
+import { changeStyle, changeShowStatus } from "../util/util.js";
 export default {
   name: "Head",
   data() {
@@ -45,6 +46,12 @@ export default {
   },
   props: {
     screenWidth: Number
+  },
+  watch: {
+    screenWidth(val) {
+      changeStyle(val);
+      changeShowStatus(val);
+    }
   },
   components: {
     NoteNav
@@ -69,6 +76,10 @@ export default {
     contact() {
       return this.$themeConfig.noteConfig.contact;
     }
+  },
+  mounted() {
+    changeStyle(document.body.clientWidth);
+    changeShowStatus(document.body.clientWidth);
   },
   methods: {
     // changeNoteList(pages) {
@@ -117,8 +128,15 @@ export default {
 </script>
 <style src="../styles/note.styl" lang="stylus"></style>
 <style lang="stylus">
+.head_hide
+  display none !important
+.head_1200
+    position fixed !important
+    left 0
+    top 0
+    z-index 11 !important
 .head
-    width 10rem
+    width 160px
     height 100%
     margin 0
     float left

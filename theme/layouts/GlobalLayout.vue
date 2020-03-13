@@ -5,7 +5,7 @@
     <!-- 列表页 -->
     <NoteList
       :screenWidth="screenWidth"
-      v-if="notes && notes.length > 0"
+      v-show="notes && notes.length > 0"
       :notes="notes"
     />
     <!-- 内容页 -->
@@ -18,17 +18,20 @@
         <DefaultGlobalLayout />
       </div>
     </div>
+    <NavBtn :screenWidth="screenWidth"></NavBtn>
   </div>
 </template>
 <script>
 import GlobalLayout from "@app/components/GlobalLayout.vue";
 import Head from "@theme/components/Head.vue";
 import NoteList from "@theme/components/NoteList.vue";
+import NavBtn from "@theme/components/NavBtn.vue";
 import { getGlobalInfo } from "@app/util";
 
 import throttle from "lodash.throttle";
 
 import Bus from "../util/bus.js";
+import { changeStyle } from "../util/util.js";
 
 export default {
   data() {
@@ -124,7 +127,8 @@ export default {
   components: {
     DefaultGlobalLayout: GlobalLayout,
     Head,
-    NoteList
+    NoteList,
+    NavBtn
   },
   methods: {
     scroll() {
