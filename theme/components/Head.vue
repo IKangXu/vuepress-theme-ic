@@ -27,21 +27,24 @@
     </div>
     <div class="note-nav">
       <ul class="note-nav-ul">
-        <NoteNav :navItems="noteNav" />
+        <NoteNav :navItems="noteNav" :idx="idx" />
       </ul>
     </div>
+    <BaseNav />
     <!-- <button @click="changeNoteList">改变noteList</button> -->
   </div>
 </template>
 <script>
 import NoteNav from "@theme/components/NoteNav.vue";
+import BaseNav from "@theme/components/BaseNav.vue";
 import Bus from "../util/bus.js";
 import { changeStyle, changeShowStatus } from "../util/util.js";
 export default {
   name: "Head",
   data() {
     return {
-      noteNavComponent: "noteNavCp"
+      noteNavComponent: "noteNavCp",
+      idx: 0
     };
   },
   props: {
@@ -54,7 +57,8 @@ export default {
     }
   },
   components: {
-    NoteNav
+    NoteNav,
+    BaseNav
   },
   computed: {
     // 获取底部设计
@@ -87,8 +91,10 @@ export default {
     // },
     buildNoteNav(frontmatterId, items) {
       let _this = this;
+      let childCount = 0;
       items.forEach((item, index, arr) => {
         // item.count = 0; // 默认设置为0
+        
         if (item.hasOwnProperty("items")) {
           // 属于组  只有item.frontmatter.id起用作用
           // let count = 0;
@@ -103,20 +109,38 @@ export default {
           // 需要递归循环
           _this.buildNoteNav(fmId, item.items);
           item.frontmatter.id = fmId;
-          //let vector = _this["$" + fmId];
-          // item.count = count ? count : 0; //vector ? vector.pages.length : 0; // 显示的分组内的个数
+          let vector = _this["$" + fmId];
+          item.count = _this.recursiveCalc(item, fmId); // count ? count : 0; //vector ? vector.pages.length : 0; // 显示的分组内的个数
         } else {
           // 不属于组 item.frontmatter.key起作用，如果item.frontmatter.key是undefined，则忽视
           let vector =
             _this["$" + (frontmatterId ? frontmatterId : item.frontmatter.id)];
-          // item.count = vector ? (vector.map[item.frontmatter.key] ? vector.map[item.frontmatter.key].pages.length : 0) : 0;
+          item.count = vector ? (vector.map[item.frontmatter.key] ? vector.map[item.frontmatter.key].pages.length : 0) : 0;
           item.frontmatter.id = frontmatterId
             ? frontmatterId
             : item.frontmatter.id;
-
-          // childCount += item.count;
+          childCount += item.count;
         }
       });
+    },
+    recursiveCalc(item, frontmatterId ) {
+        let count = 0;
+        let _this = this;
+        if (item.hasOwnProperty("items")) {
+          item.items.forEach((im, index, arr) => {
+            let fmId = item.frontmatter.id;
+            if (!fmId) {
+              fmId = frontmatterId;
+            }
+            count += _this.recursiveCalc(im, fmId);
+          })
+          
+        } else {
+          let vector =
+            _this["$" + (frontmatterId ? frontmatterId : item.frontmatter.id)];
+          count = vector ? (vector.map[item.frontmatter.key] ? vector.map[item.frontmatter.key].pages.length : 0) : 0;
+        }
+        return count;
     },
     homeClick() {
       // 清空数据
@@ -159,6 +183,7 @@ export default {
         cursor pointer
     .contact
         padding .5rem
+        line-height 2rem
         .item-icon
             width 5px
             height 5px
@@ -178,13 +203,17 @@ export default {
           //   border-bottom 1px solid #ffffff
           .item
             position relative
+            line-height 2rem
             > a
               margin-left .5rem
+              display inline-block
+              width calc(100% - .5rem)
+              height 100%
             .nav-child
               display none
             .nav-child.show
               display block
-              animation: unfold_top 0.3s ease-in-out;
+              // animation: unfold_top 0.3s ease-in-out;
           .item-group
             ul
               background-color: #3A3D49
@@ -205,8 +234,7 @@ export default {
                 right .5rem
                 border-width 5px
                 border-top-color rgba(255, 255, 255, .7)
-          .itemed
-            .nav-down
+            .nav-down-transform
                   transform: rotate(180deg);
           .item-singleton
             &:hover

@@ -8,11 +8,11 @@ module.exports = {
     // 设置logo
     logo: "/ikangxu.jpg",
     author: "IKangXu",
-    nav: [
+    navs: [
       // 默认为左侧底部设计
-      { text: "关于", link: "/guide/" },
-      { text: "友情链接", link: "/guide/" },
-      { text: "RSS", link: "/guide/" }
+      { text: "关于", link: "/notes/type1/2020/0101", blank: false },
+      { text: "友链", link: "/notes/type1/2020/0105", blank: false },
+      { text: "RSS", link: "http://10.16.30.1:8080/rss.xml", blank: true }
     ],
     noteConfig: {
       bg: "/bg.jpg",
@@ -33,6 +33,7 @@ module.exports = {
           text: "语言",
           icon: "",
           frontmatter: { id: "language" }, // 通过这种方式进行分组设置
+          open: true,
           items: [
             {
               text: "Java",

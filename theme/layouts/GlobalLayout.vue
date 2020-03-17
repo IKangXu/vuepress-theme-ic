@@ -10,7 +10,7 @@
     />
     <!-- 内容页 -->
     <div
-      class="note-content"
+      :class="[parentCls]"
       @scroll="scroll"
       :style="{ 'background-image': `url(` + $themeConfig.noteConfig.bg + `)` }"
     >
@@ -19,6 +19,7 @@
       </div>
     </div>
     <NavBtn :screenWidth="screenWidth"></NavBtn>
+    <BackTop v-if="backTop.show" :parentCls="parentCls"></BackTop>
   </div>
 </template>
 <script>
@@ -26,6 +27,7 @@ import GlobalLayout from "@app/components/GlobalLayout.vue";
 import Head from "@theme/components/Head.vue";
 import NoteList from "@theme/components/NoteList.vue";
 import NavBtn from "@theme/components/NavBtn.vue";
+import BackTop from "@theme/components/BackTop.vue";
 import { getGlobalInfo } from "@app/util";
 
 import throttle from "lodash.throttle";
@@ -39,8 +41,12 @@ export default {
       notes: [],
       screenWidth: 0,
       scrollHash: null,
+      parentCls: "note-content",
       loading: {
         show: true
+      },
+      backTop: {
+        show: false
       }
     };
   },
@@ -89,7 +95,27 @@ export default {
       }
       // 如果当前新开的一个窗口且sessionStorage中notes为空，那么手动构造notes
       if (currentPath !== "/") {
-        sessionStorage.setItem("notes", JSON.stringify([vm.$page]));
+        let navs = vm.$themeConfig.navs,
+          showFlag = true;
+        for (let i = 0; i < navs.length; i++) {
+          if (vm.$page.regularPath && 
+            navs[i].link ===
+            decodeURIComponent(
+              vm.$page.regularPath.substring(
+                0,
+                vm.$page.regularPath.lastIndexOf(".")
+              )
+            )
+          ) {
+            showFlag = false;
+            break;
+          }
+        }
+        if (!showFlag || !vm.$page.regularPath) {
+          sessionStorage.removeItem("notes");
+        } else {
+          sessionStorage.setItem("notes", JSON.stringify([vm.$page]));
+        }
       }
 
       let sessionNotes = sessionStorage.getItem("notes");
@@ -97,6 +123,7 @@ export default {
         ? JSON.parse(sessionNotes)
         : [];
       // 用$on事件来接收参数
+
       Bus.$on("notes", notes => {
         vm.notes = notes;
       });
@@ -120,7 +147,7 @@ export default {
         );
         loadingContainer.addEventListener("transitionend", function() {
           loadingContainer.style.display = "none";
-        })
+        });
       }, 500);
     }, 500);
   },
@@ -128,7 +155,8 @@ export default {
     DefaultGlobalLayout: GlobalLayout,
     Head,
     NoteList,
-    NavBtn
+    NavBtn,
+    BackTop
   },
   methods: {
     scroll() {
@@ -137,6 +165,11 @@ export default {
         top = event.target.scrollTop,
         bodyHeight = document.body.offsetHeight,
         cnt = 0;
+      if (top != 0) {
+        vm.backTop.show = true;
+      } else{
+        vm.backTop.show = false;
+      }
       for (let i = 0; i < headers.length; i++) {
         let header = headers[i];
         if (!document.getElementById(header.slug)) {

@@ -6,10 +6,15 @@
 https://ikangxu-static.oss-cn-beijing.aliyuncs.com/images/vuepress-theme-ic/loading.gif)
 
 ![Note](
-https://ikangxu-static.oss-cn-beijing.aliyuncs.com/images/vuepress-theme-ic/note1.gif)
+https://ikangxu-static.oss-cn-beijing.aliyuncs.com/images/vuepress-theme-ic/mobile.jpg)
+
+![Note](
+https://ikangxu-static.oss-cn-beijing.aliyuncs.com/images/vuepress-theme-ic/pc.jpg)
 
 #### 待完成
 
-- 兼容移动端
-- 重构左侧树结构
 - 博客首页
+- 搜索
+- 评论接入
+- 关于页面
+- 友情链接页面

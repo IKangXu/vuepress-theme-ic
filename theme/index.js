@@ -48,6 +48,18 @@ module.exports = (options, ctx) => {
           }
         ]
       }],
+      [
+        '@ikangxu/vuepress-plugin-rss',
+        {
+          base_url: '/', // required
+          site_url: 'http://10.16.30.1:8080', // required
+          copyright: '2020 IKangXu', // optional
+          // filter some post
+          filter: (frontmatter) => { return [true|false] },
+          // How much articles
+          count: 20
+        }
+      ],
       ['container', {
         type: 'tip',
         defaultTitle: {
