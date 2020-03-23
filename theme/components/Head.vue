@@ -25,6 +25,7 @@
         <!-- {{ item.text }} -->
       </a>
     </div>
+    <SearchBox />
     <div class="note-nav">
       <ul class="note-nav-ul">
         <NoteNav :navItems="noteNav" :idx="idx" />
@@ -37,6 +38,7 @@
 <script>
 import NoteNav from "@theme/components/NoteNav.vue";
 import BaseNav from "@theme/components/BaseNav.vue";
+import SearchBox from "@theme/components/SearchBox.vue";
 import Bus from "../util/bus.js";
 import { changeStyle, changeShowStatus } from "../util/util.js";
 export default {
@@ -58,7 +60,8 @@ export default {
   },
   components: {
     NoteNav,
-    BaseNav
+    BaseNav,
+    SearchBox
   },
   computed: {
     // 获取底部设计
@@ -193,6 +196,7 @@ export default {
       cursor pointer
       height 70%
       overflow auto
+      margin-top .5rem
       ul
         padding 0
         // padding-left .5rem

@@ -15,8 +15,16 @@
       :style="{ 'background-image': `url(` + $themeConfig.noteConfig.bg + `)` }"
     >
       <div class="note-container">
-        <DefaultGlobalLayout />
+        <DefaultGlobalLayout v-if="!$page.frontmatter.home" />
+        <Home v-if="$page.frontmatter.home" />
+        <Sponsor />
+        <div class="valine-ic-comment">
+          <Comment />
+        </div>
       </div>
+      <Footer />
+      <WavesArea />
+      <BrowseProgress :scrollCls="parentCls" />
     </div>
     <NavBtn :screenWidth="screenWidth"></NavBtn>
     <BackTop v-if="backTop.show" :parentCls="parentCls"></BackTop>
@@ -28,9 +36,14 @@ import Head from "@theme/components/Head.vue";
 import NoteList from "@theme/components/NoteList.vue";
 import NavBtn from "@theme/components/NavBtn.vue";
 import BackTop from "@theme/components/BackTop.vue";
-import { getGlobalInfo } from "@app/util";
+import Footer from "@theme/components/Footer.vue";
+import Comment from "@theme/components/Comment.vue";
+import Home from "@theme/components/Home.vue";
+import Sponsor from "@theme/components/Sponsor.vue";
+import WavesArea from "@theme/components/WavesArea.vue";
+import BrowseProgress from "@theme/components/BrowseProgress.vue";
 
-import throttle from "lodash.throttle";
+import { getGlobalInfo } from "@app/util";
 
 import Bus from "../util/bus.js";
 import { changeStyle } from "../util/util.js";
@@ -98,14 +111,15 @@ export default {
         let navs = vm.$themeConfig.navs,
           showFlag = true;
         for (let i = 0; i < navs.length; i++) {
-          if (vm.$page.regularPath && 
+          if (
+            vm.$page.regularPath &&
             navs[i].link ===
-            decodeURIComponent(
-              vm.$page.regularPath.substring(
-                0,
-                vm.$page.regularPath.lastIndexOf(".")
+              decodeURIComponent(
+                vm.$page.regularPath.substring(
+                  0,
+                  vm.$page.regularPath.lastIndexOf(".")
+                )
               )
-            )
           ) {
             showFlag = false;
             break;
@@ -156,7 +170,13 @@ export default {
     Head,
     NoteList,
     NavBtn,
-    BackTop
+    BackTop,
+    Footer,
+    Comment,
+    Home,
+    Sponsor,
+    WavesArea,
+    BrowseProgress
   },
   methods: {
     scroll() {
@@ -167,8 +187,11 @@ export default {
         cnt = 0;
       if (top != 0) {
         vm.backTop.show = true;
-      } else{
+      } else {
         vm.backTop.show = false;
+      }
+      if (!headers) {
+        return;
       }
       for (let i = 0; i < headers.length; i++) {
         let header = headers[i];
@@ -202,6 +225,7 @@ export default {
     background-color #ffffff
     height 100%
     overflow auto
+    overflow-x hidden
     // background-image url('/bg.jpg')
     .note-container
       max-width 1000px
@@ -209,8 +233,14 @@ export default {
       padding 1rem 2rem
       margin 0 auto
       box-shadow 0 0 6px 3px rgba(0,21,41,0.15)
-      min-height calc(100vh - 2rem)
+      min-height calc(100vh - 3rem - 21px)
       background-color #ffffff
       // p,.custom-block.tip
       //   margin 0
+    #valine-ic-comment
+      background-color #fff
+      max-width 1000px
+      min-width 200px
+      margin 0 auto
+      margin-top 3rem
 </style>

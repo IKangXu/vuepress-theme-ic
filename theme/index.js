@@ -24,8 +24,7 @@ module.exports = (options, ctx) => {
     },
     plugins: [
       // [require('@ikangxu/vuepress-plugin-first-loading')],
-      ['@vuepress/active-header-links', options.activeHeaderLinks],
-      '@vuepress/search',
+      ['@vuepress/active-header-links', options.activeHeaderLinks],      
       '@vuepress/plugin-nprogress',
       ['@vuepress/plugin-blog', {
         frontmatters: [
@@ -48,6 +47,7 @@ module.exports = (options, ctx) => {
           }
         ]
       }],
+      '@vuepress/medium-zoom',
       [
         '@ikangxu/vuepress-plugin-rss',
         {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    {{{ userHeadTags }}}
+    {{{ pageMeta }}}
+    {{{ renderResourceHints() }}}
+    {{{ renderStyles() }}}
+
+    <style>
+      body{padding:0;margin:0}
+      .loading-container{width:100%;height:100%;background-color:#fff;position:absolute;z-index:30}
+      .loading-container .loading{width:115px;height:115px;margin:0 auto;top:calc(50% - 115px);position:relative}
+      .configure-border-1{width:115px;height:115px;padding:3px;position:absolute;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,0.9);animation:configure-clockwise 5s ease-in-out 0s infinite alternate}
+      .configure-border-2{width:115px;height:115px;padding:3px;left:-115px;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,0.9);transform:rotate(45deg);animation:configure-xclockwise 5s ease-in-out 0s infinite alternate}
+      .configure-core{width:100%;height:100%;background-color:#fff}
+      @keyframes configure-clockwise{0%{transform:rotate(0)}25%{transform:rotate(90deg)}50%{transform:rotate(180deg)}75%{transform:rotate(270deg)}100%{transform:rotate(360deg)}}
+      @keyframes configure-xclockwise{0%{transform:rotate(45deg)}25%{transform:rotate(-45deg)}50%{transform:rotate(-135deg)}75%{transform:rotate(-225deg)}100%{transform:rotate(-315deg)}}
+      .loading-fade-out{transition:all .8s ease-in-out;opacity:0}
+      .loading-container .tip{font-weight:700;width:100%;text-align:center;position:absolute;top:calc(50% + 57px);color:#000}
+    </style>
+  </head>
+  <body>
+    <div class="loading-container">
+      <div class="loading">
+        <div class="configure-border-1">  
+          <div class="configure-core">
+          </div>
+        </div>  
+        <div class="configure-border-2">
+          <div class="configure-core">
+            <img class="loading-header" width="100%"/>
+          </div>
+        </div>
+      </div>
+      <div class="tip">努力加载中 ……</div>
+    </div>
+    <!--vue-ssr-outlet-->
+    {{{ renderScripts() }}}
+  </body>
+</html>

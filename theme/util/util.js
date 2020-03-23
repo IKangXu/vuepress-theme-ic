@@ -35,7 +35,10 @@ export function changeShowStatus(screenWidth) {
     let headElement = document.getElementsByClassName("head")[0];
     let headClass = headElement.getAttribute("class");
     if (headClass.search("head_hide") != -1) {
-      headElement.setAttribute("class", headClass.replace("head_hide", ""));
+      headElement.setAttribute(
+        "class",
+        headClass.replace(new RegExp("head_hide", "g"), "")
+      );
     }
     let noteListElement = document.getElementsByClassName("note-list")[0];
     if (noteListElement) {
@@ -43,7 +46,7 @@ export function changeShowStatus(screenWidth) {
       if (noteListClass.search("note-list_hide") != -1) {
         noteListElement.setAttribute(
           "class",
-          noteListClass.replace("note-list_hide", "")
+          noteListClass.replace(new RegExp("note-list_hide", "g"), "")
         );
       }
     }
@@ -56,12 +59,14 @@ export function changeStyle(screenWidth) {
     let headElement = document.getElementsByClassName("head")[0];
     let headClass = headElement.getAttribute("class");
     if (headClass.search("head_1200") == -1) {
+      console.log(headElement);
       headElement.setAttribute("class", headClass.concat(" head_1200"));
     }
     let noteListElement = document.getElementsByClassName("note-list")[0];
     if (noteListElement) {
       let noteListClass = noteListElement.getAttribute("class");
       if (noteListClass.search("note-list_1200") == -1) {
+        console.log(noteListElement);
         noteListElement.setAttribute(
           "class",
           noteListClass.concat(" note-list_1200")
@@ -70,7 +75,7 @@ export function changeStyle(screenWidth) {
       if (noteListClass.search("note-list_510") != -1) {
         noteListElement.setAttribute(
           "class",
-          noteListClass.replace("note-list_510", "")
+          noteListClass.replace(new RegExp("note-list_510", "g"), "")
         );
       }
     }
@@ -95,16 +100,24 @@ export function changeStyle(screenWidth) {
     let headElement = document.getElementsByClassName("head")[0];
     let headClass = headElement.getAttribute("class");
     if (headClass.search("head_1200") != -1) {
-      headElement.setAttribute("class", headClass.replace("head_1200", ""));
+      headElement.setAttribute(
+        "class",
+        headClass.replace(new RegExp("head_1200", "g"), "")
+      );
     }
 
     let noteListElement = document.getElementsByClassName("note-list")[0];
     if (noteListElement) {
       let noteListClass = noteListElement.getAttribute("class");
-      if (noteListClass.search("note-list_1200") != -1) {
+      if (
+        noteListClass.search("note-list_1200") != -1 ||
+        noteListClass.search("note-list_510") != -1
+      ) {
         noteListElement.setAttribute(
           "class",
-          noteListClass.replace("note-list_1200", "")
+          noteListClass
+            .replace(new RegExp("note-list_1200", "g"), "")
+            .replace(new RegExp("note-list_510", "g"), "")
         );
       }
     }

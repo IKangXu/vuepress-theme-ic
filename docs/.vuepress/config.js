@@ -8,11 +8,12 @@ module.exports = {
     // 设置logo
     logo: "/ikangxu.jpg",
     author: "IKangXu",
+    searchMaxSuggestions: 20,
     navs: [
       // 默认为左侧底部设计
       { text: "关于", link: "/notes/type1/2020/0101", blank: false },
       { text: "友链", link: "/notes/type1/2020/0105", blank: false },
-      { text: "RSS", link: "http://10.16.30.1:8080/rss.xml", blank: true }
+      { text: "RSS", link: "http://ikangxu.cn/rss.xml", blank: true }
     ],
     noteConfig: {
       bg: "/bg.jpg",
@@ -118,6 +119,21 @@ module.exports = {
           { text: "设计灵感4", link: "https://yelog.org/", icon: "icongithub" }
         ]
       }
+    },
+    comment: {
+      choosen: 'valine', 
+      // options选项中的所有参数，会传给Valine的配置
+      options: {
+        el: '#valine-ic-comment',
+        appId: 'YHJfw4vHdmo9qKc9o3Tw0ai6-9Nh9j0Va',
+        appKey: 'oc6CAs0vlQVsDyAfMGLwEyxr',
+        notify: true,
+        // verify: false,
+        visitor: true,
+        // avatar:'mm', //头像，默认即可
+        placeholder: 'just go go'
+      },
+      container: ".valine-ic-comment"
     }
   },
   markdown: {
