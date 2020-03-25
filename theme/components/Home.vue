@@ -23,16 +23,6 @@
       >
         {{ data.tagline || $description || 'Welcome to your VuePress site' }}
       </p>
-
-      <p
-        v-if="data.actionText && data.actionLink"
-        class="action"
-      >
-        <!-- <NavLink
-          class="action-button"
-          :item="actionLink"
-        /> -->
-      </p>
     </header>
 
     <div
@@ -44,8 +34,8 @@
         :key="index"
         class="feature"
       >
-        <h2>{{ feature.title }}</h2>
         <p>{{ feature.details }}</p>
+        <h5>--- {{ feature.author }}</h5>
       </div>
     </div>
 
@@ -61,12 +51,6 @@ export default {
   computed: {
     data () {
       return this.$page.frontmatter
-    },
-    actionLink () {
-      return {
-        link: this.data.actionLink,
-        text: this.data.actionText
-      }
     }
   }
 }
@@ -74,7 +58,7 @@ export default {
 
 <style lang="stylus">
 .home
-  padding $navbarHeight 2rem 0
+  // padding 0 2rem 0
   max-width $homePageWidth
   margin 0px auto
   display block
@@ -84,7 +68,7 @@ export default {
       max-width: 100%
       max-height 280px
       display block
-      margin 3rem auto 1.5rem
+      margin 3rem auto
     h1
       font-size 3rem
     h1, .description, .action
@@ -110,39 +94,35 @@ export default {
     border-top 1px solid $borderColor
     padding 1.2rem 0
     margin-top 2.5rem
-    display flex
-    flex-wrap wrap
-    align-items flex-start
-    align-content stretch
-    justify-content space-between
+    // display flex
+    // flex-wrap wrap
+    // align-items flex-start
+    // align-content stretch
+    // justify-content space-between
   .feature
-    flex-grow 1
-    flex-basis 30%
-    max-width 30%
-    h2
-      font-size 1.4rem
+    // flex-grow 1
+    // flex-basis 30%
+    // max-width 30%
+    h5
+      // font-size 1.4rem
       font-weight 500
       border-bottom none
       padding-bottom 0
       color lighten($textColor, 10%)
+      text-align right
+      margin .1rem 0
     p
       color lighten($textColor, 25%)
+      margin .5rem 0
   .footer
     padding 2.5rem
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
-@media (max-width: $MQMobile)
-  .home
-    .features
-      flex-direction column
-    .feature
-      max-width 100%
-      padding 0 2.5rem
 @media (max-width: $MQMobileNarrow)
   .home
-    padding-left 1.5rem
-    padding-right 1.5rem
+    // padding-left 1.5rem
+    // padding-right 1.5rem
     .hero
       img
         max-height 210px

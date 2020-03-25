@@ -55,18 +55,17 @@ export default {
   watch: {
     navItems: {
       handler(newValue, oldValue) {
-        console.log(newValue);
       },
       deep: true
     }
   },
   methods: {
-    oClick() {
-      console.log(2222);
-    },
     changeNoteList(item) {
       let _this = this;
       let notes = _this["$" + item.frontmatter.id].map[item.frontmatter.key];
+      if (!notes) {
+        return;
+      }
       let pages = notes.pages;
 
       Bus.$emit("notes", pages);

@@ -12,8 +12,6 @@
           {{ nav.text }}
         </a>
       </div>
-      <!-- <div>友链</div> -->
-      <!-- <div <div class="clear-last-right-border">RSS</div> -->
     </div>
   </div>
 </template>
@@ -52,8 +50,8 @@ export default {
        display flex
        div
         flex 1
-        border-top 1px solid #ffffff
-        border-right 1px solid #ffffff
+        border-top 1px dashed #ffffff
+        border-right 1px dashed #ffffff
         overflow hidden
         text-overflow ellipsis
         white-space nowrap

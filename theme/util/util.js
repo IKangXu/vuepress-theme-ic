@@ -1,7 +1,13 @@
 const moment = require("moment");
 
-export function utcToTime(utc) {
-  return moment(utc)
+export function utcToTime(utc, fmt) {
+  let result;
+  if(fmt) {
+    result = moment(utc, fmt)
+  } else {
+    result = moment(utc)
+  }
+  return result
     .utcOffset(8)
     .format("YYYY-MM-DD HH:mm:ss");
 }
@@ -59,14 +65,12 @@ export function changeStyle(screenWidth) {
     let headElement = document.getElementsByClassName("head")[0];
     let headClass = headElement.getAttribute("class");
     if (headClass.search("head_1200") == -1) {
-      console.log(headElement);
       headElement.setAttribute("class", headClass.concat(" head_1200"));
     }
     let noteListElement = document.getElementsByClassName("note-list")[0];
     if (noteListElement) {
       let noteListClass = noteListElement.getAttribute("class");
       if (noteListClass.search("note-list_1200") == -1) {
-        console.log(noteListElement);
         noteListElement.setAttribute(
           "class",
           noteListClass.concat(" note-list_1200")

@@ -17,11 +17,21 @@ body
   -moz-osx-font-smoothing grayscale
   font-size 16px
   color $textColor
-  
+
+.custom-block
+  &.notitle
+    // background-color: #f3f5f7;
+    border-color #42b983
+    background-color #282c34
+    padding 1.5rem
+    border-left-width .5rem
+    border-left-style solid
+    margin 1rem 0
+    color #fff
+
 ul,li
  padding 0
  margin 0
- list-style none
 
 body>div
   height 100%
@@ -162,6 +172,17 @@ a.header-anchor
 code, kbd, .line-number
   font-family source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace
 
+p code, li code 
+    font-weight bold
+    margin 0 2px !important
+    color #e96900 !important
+    padding 3px 5px !important
+    font-size 0.85em !important
+    border-radius 2px !important
+    font-family "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace !important
+    background-color #f8f8f8 !important
+
+
 p, ul, ol
   line-height 1.7
 
@@ -197,6 +218,9 @@ th, td
 
     .sidebar
       top 0
+
+div[class*=language-]
+  border-radius 0 !important
 
 ::-webkit-scrollbar
   width: 6px;

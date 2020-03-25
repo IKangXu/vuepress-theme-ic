@@ -2,7 +2,11 @@
   <div class="note-list">
     <!--  -->
     <ul>
-      <li :class="['note', item.path === currentNote.path ? 'actived' : '']" v-for="(item, i) in notes" @click="changeStatus">
+      <li
+        :class="['note', item.path === currentNote.path ? 'actived' : '']"
+        v-for="(item, i) in notes"
+        @click="changeStatus"
+      >
         <RouterLink :to="item.regularPath">
           <div class="title">
             <!-- <i class="item-icon iconfont icondayuhao"></i> -->
@@ -12,6 +16,11 @@
           <!-- 摘要 -->
           <span class="abstract" v-html="item.excerpt"></span>
           <!-- 时间，标签，分类等 -->
+          <div class="author" v-if="author(item)">
+            <i class="item-icon iconfont iconmian-renwu">
+              &nbsp;<span>{{ item | getAuthor($themeConfig.author) }} </span>
+            </i>
+          </div>
           <div class="category" v-if="item.frontmatter.categories">
             <i class="item-icon iconfont iconCategoriesCopy">
               &nbsp;<span v-for="(category, ci) in item.frontmatter.categories"
@@ -56,6 +65,12 @@ export default {
   filters: {
     formatTime: function(value) {
       return utcToTime(value);
+    },
+    getAuthor: function(value, defaultValue) {
+      if (value.frontmatter.reprint) {
+        return value.frontmatter.reprint.author;
+      }
+      return defaultValue;
     }
   },
   mounted() {
@@ -63,6 +78,12 @@ export default {
     changeShowStatus(document.body.clientWidth);
   },
   methods: {
+    author(item) {
+      if (item.frontmatter.reprint) {
+        return item.frontmatter.reprint.author;
+      }
+      return this.$themeConfig.author;
+    },
     changeStatus() {
       let childElements = event.currentTarget.parentElement.children;
       Array.prototype.slice.call(childElements).forEach(element => {
@@ -87,7 +108,7 @@ export default {
 </script>
 <style src="../styles/note.styl" lang="stylus"></style>
 <style lang="stylus">
-.note-list_hide 
+.note-list_hide
   display none !important
 .note-list_1200
     position fixed !important
@@ -142,7 +163,7 @@ export default {
         font-size .5rem
         .iconfont
           font-size .8rem
-    .category
+    .category,.author
         color #9E9E9E
         display inline-block
         font-size .5rem

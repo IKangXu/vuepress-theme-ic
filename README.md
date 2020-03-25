@@ -13,6 +13,5 @@ https://ikangxu-static.oss-cn-beijing.aliyuncs.com/images/vuepress-theme-ic/pc.j
 
 #### 待完成
 
-- 博客首页
 - 关于页面
 - 友情链接页面

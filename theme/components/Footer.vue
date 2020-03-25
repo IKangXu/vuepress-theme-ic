@@ -1,24 +1,46 @@
 <template>
   <div class="footer">
-    <a href="https://github.com/IKangXu/vuepress-theme-ic" target=_blank>
+    <a href="https://github.com/IKangXu/vuepress-theme-ic" target="_blank">
       <i class="item-icon iconfont iconzhuti1"></i>
       <span>VuePress-Theme-IC</span>
     </a>
-    <a href="http://beian.miit.gov.cn/" target=_blank>
+    <a v-if="footer.icp.val" :href="footer.icp.link" target="_blank">
       <i class="item-icon iconfont iconbeian"></i>
-      <span>苏ICP备19025415号</span>
+      <span>{{ footer.icp.val }}</span>
     </a>
-    <a href="https://github.com/IKangXu" target=_blank>
+    <a href="javascript: void(0);" target="_blank">
       <i class="item-icon iconfont iconcopyright"></i>
-      <span>IKangXu 2020</span>
+      <span v-if="footer.startYear"
+        >{{ author }} {{ footer.startYear }} - {{ currentYear }}</span
+      >
+      <span v-else>{{ author }} {{ currentYear }}</span>
     </a>
+
+    <p v-if="footer.psr.val" class="psr">
+      <img
+        src="https://gw.alicdn.com/tfs/TB1jwakrbH1gK0jSZFwXXc7aXXa-20-20.png"
+      />
+      <a :href="footer.psr.link" target="_blank">{{ footer.psr.val }}</a>
+    </p>
   </div>
 </template>
 <script>
+import * as moment from "moment";
 export default {
   name: "Footer",
   data() {
     return {};
+  },
+  computed: {
+    footer() {
+      return this.$themeConfig.footer;
+    },
+    currentYear() {
+      return moment().format("YYYY");
+    },
+    author() {
+      return this.$themeConfig.author;
+    }
   }
 };
 </script>
@@ -38,4 +60,10 @@ export default {
         cursor pointer
         &:hover
             color #736f6f
+    .psr
+       img 
+          vertical-align middle
+        a
+          vertical-align middle
+          margin 0
 </style>

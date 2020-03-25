@@ -3,6 +3,11 @@
     <div class="note-info" v-if="currentNote.title !== 'Home'">
       <h2>{{ currentNote.title }}</h2>
       <!-- 时间，标签，分类等 -->
+      <div class="author" v-if="author">
+        <i class="item-icon iconfont iconmian-renwu">
+          &nbsp;<span>{{ author }} </span>
+        </i>
+      </div>
       <div class="category" v-if="currentNote.frontmatter.categories">
         <i class="item-icon iconfont iconCategoriesCopy">
           &nbsp;<span
@@ -22,7 +27,6 @@
         <i class="item-icon iconfont icontime">
           &nbsp;<span>{{ currentNote.frontmatter.time | formatTime }}</span>
         </i>
-        
       </div>
 
       <!-- <div class="eye">
@@ -54,6 +58,12 @@ export default {
   computed: {
     currentNote() {
       return this.$page;
+    },
+    author() {
+      if (this.currentNote.frontmatter.reprint) {
+        return this.currentNote.frontmatter.reprint.author;
+      }
+      return this.$themeConfig.author;
     }
   },
   filters: {
@@ -61,8 +71,7 @@ export default {
       return utcToTime(value);
     }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {}
 };
 </script>
@@ -81,7 +90,7 @@ export default {
       font-size .5rem
       .iconfont
         font-size .8rem
-  .category
+  .category,.author
       color #9E9E9E
       display inline-block
       font-size .5rem
@@ -93,7 +102,7 @@ export default {
       color #9E9E9E
       .iconfont
         font-size .8rem
-  .eye 
+  .eye
       color #9E9E9E
       display inline-block
       font-size .5rem

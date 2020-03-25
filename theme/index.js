@@ -35,9 +35,9 @@ module.exports = (options, ctx) => {
           //   path: '/tag/'
           // },
           {
-            id: "categories",
-            keys: ['categories'],
-            path: '/categories/'
+            id: "other",
+            keys: ['other'],
+            path: '/other/'
           },
           ///////////////// 构造分类 //////////////////
           {
@@ -66,6 +66,10 @@ module.exports = (options, ctx) => {
           '/': 'TIP',
           '/zh/': '提示'
         }
+      }],
+      ['container', {
+        type: 'notitle',
+        defaultTitle: ''
       }],
       ['container', {
         type: 'warning',

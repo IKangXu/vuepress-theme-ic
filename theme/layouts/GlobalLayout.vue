@@ -17,7 +17,9 @@
       <div class="note-container">
         <DefaultGlobalLayout v-if="!$page.frontmatter.home" />
         <Home v-if="$page.frontmatter.home" />
+        <Reprint />
         <Sponsor />
+        <PageEdit />
         <div class="valine-ic-comment">
           <Comment />
         </div>
@@ -42,6 +44,8 @@ import Home from "@theme/components/Home.vue";
 import Sponsor from "@theme/components/Sponsor.vue";
 import WavesArea from "@theme/components/WavesArea.vue";
 import BrowseProgress from "@theme/components/BrowseProgress.vue";
+import PageEdit from "@theme/components/PageEdit.vue";
+import Reprint from "@theme/components/Reprint.vue";
 
 import { getGlobalInfo } from "@app/util";
 
@@ -131,7 +135,6 @@ export default {
           sessionStorage.setItem("notes", JSON.stringify([vm.$page]));
         }
       }
-
       let sessionNotes = sessionStorage.getItem("notes");
       vm.notes = sessionStorage.getItem("notes")
         ? JSON.parse(sessionNotes)
@@ -176,7 +179,9 @@ export default {
     Home,
     Sponsor,
     WavesArea,
-    BrowseProgress
+    BrowseProgress,
+    PageEdit,
+    Reprint
   },
   methods: {
     scroll() {

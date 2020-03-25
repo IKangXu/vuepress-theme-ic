@@ -1,18 +1,23 @@
 module.exports = {
   // 博客名
-  title: "Hello VuePress",
+  title: "Narrow road meet, code revere win.",
   // 博客描述
-  description: "Just playing around",
+  description: "码,需清心寡欲",
   theme: require.resolve("../../theme/"),
   themeConfig: {
     // 设置logo
     logo: "/ikangxu.jpg",
     author: "IKangXu",
     searchMaxSuggestions: 20,
+    repo: "IKangXu/vuepress-theme-ic",
+    docsDir: "docs",
+    editLinks: true,
+    editLinkText: "在 GitHub 上编辑此页",
+    lastUpdated: "Last Updated",
     navs: [
       // 默认为左侧底部设计
-      { text: "关于", link: "/notes/type1/2020/0101", blank: false },
-      { text: "友链", link: "/notes/type1/2020/0105", blank: false },
+      { text: "关于", link: "/notes/about", blank: false },
+      { text: "友链", link: "/notes/friendLink", blank: false },
       { text: "RSS", link: "http://ikangxu.cn/rss.xml", blank: true }
     ],
     noteConfig: {
@@ -22,12 +27,12 @@ module.exports = {
         // 通过以下方式可以获取到相应的文章内容
         // _this['$'+_this.$themeConfig.noteConfig.nav[0].frontmatter.id].map[_this.$themeConfig.noteConfig.nav[0].frontmatter.key]
         {
-          text: "测试非目录", // 左侧栏名称
+          text: "随笔", // 左侧栏名称
           icon: "",
           frontmatter: {
             // 指定frontmatter内容
-            id: "categories", // 指向vuepress-plugin-blog中的frontmatter
-            key: "front" // Markdown中的frontmatter配置的categories值
+            id: "other", // 指向vuepress-plugin-blog中的frontmatter
+            key: "essay" // Markdown中的frontmatter配置的categories值
           }
         },
         {
@@ -58,6 +63,11 @@ module.exports = {
               icon: "",
               frontmatter: { key: "JavaScript" },
               items: [
+                {
+                  text: "ECMAScript6",
+                  icon: "",
+                  frontmatter: { key: "ECMAScript6" }
+                },
                 {
                   text: "Vue",
                   icon: "",
@@ -100,40 +110,41 @@ module.exports = {
         enabled: true,
         items: [
           {
-            text: "Vuepress",
-            link: "https://v0.vuepress.vuejs.org/zh/",
+            text: "QQ",
+            link: "http://wpa.qq.com/msgrd?v=3&uin=1454900516&site=qq&menu=yes",
             icon: "iconqq"
           },
-          {
-            text: "GitHub",
-            link: "https://vuepress-plugin-blog.ulivz.com",
-            icon: "iconyanzheng-jianshu"
-          },
-          { text: "设计灵感", link: "https://yelog.org/", icon: "iconweibo" },
-          { text: "设计灵感2", link: "https://yelog.org/", icon: "iconmayun" },
-          {
-            text: "设计灵感3",
-            link: "https://yelog.org/",
-            icon: "iconzhihu-copy"
-          },
-          { text: "设计灵感4", link: "https://yelog.org/", icon: "icongithub" }
+          { text: "GitHub", link: "https://github.com/IKangXu", icon: "icongithub" }
         ]
       }
     },
     comment: {
-      choosen: 'valine', 
+      choosen: "valine",
       // options选项中的所有参数，会传给Valine的配置
       options: {
-        el: '#valine-ic-comment',
-        appId: 'YHJfw4vHdmo9qKc9o3Tw0ai6-9Nh9j0Va',
-        appKey: 'oc6CAs0vlQVsDyAfMGLwEyxr',
-        notify: true,
+        el: "#valine-ic-comment",
+        appId: "Y34cUjWPqzbPWKc1Ua5UGDqn-gzGzoHsz",
+        appKey: "cKSTywqJYCSmbHPYbwaOC23d",
+        notify: false,
         // verify: false,
         visitor: true,
         // avatar:'mm', //头像，默认即可
-        placeholder: 'just go go'
+        placeholder: "just go go"
       },
       container: ".valine-ic-comment"
+    },
+    sponsor: ["/alipay.jpg", "/Tenpay.png"],
+    footer: {
+      icp: {
+        val: "苏ICP备19025415号",
+        link: "http://beian.miit.gov.cn/"
+      }, // ICP备案
+      startYear: "2019", // 开始日期
+      psr: {
+        val: "",//"苏公网安备 XXXXX号",
+        link:
+          "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=XXXXX&token=62a24040-710d-473b-89b8-26de6e91d20b"
+      } // 公安备案
     }
   },
   markdown: {

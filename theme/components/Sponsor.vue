@@ -1,10 +1,9 @@
 <template>
-  <div class="sponsor">
-    <i class="item-icon iconfont icondashang" @click="changePay"></i>
+  <div class="sponsor" v-if="enabled">
+    <i class="item-icon iconfont icondashang" @click="changePay(true)"></i>
 
     <div class="img" v-show="showPay">
-      <img src="/alipay.jpg" />
-      <img src="/Tenpay.png" />
+      <img v-for="(item,i) in sponsor" :src="item" />
     </div>
   </div>
 </template>
@@ -16,6 +15,17 @@ export default {
       showPay: false
     };
   },
+  computed: {
+    enabled() {
+      if(this.$page.frontmatter.sponsor === undefined) {
+        return true;
+      }
+      return this.$page.frontmatter.sponsor;
+    },
+    sponsor() {
+      return this.$themeConfig.sponsor
+    }
+  },
   mounted() {
     let _this = this;
     _this.$router.afterEach((to, from) => {
@@ -26,11 +36,15 @@ export default {
     });
   },
   methods: {
-    changePay() {
+    changePay(isClick) {
       if (this.showPay) {
         this.showPay = false;
       } else {
         this.showPay = true;
+      }
+
+      if(!isClick) {
+        this.showPay = false;
       }
     }
   }

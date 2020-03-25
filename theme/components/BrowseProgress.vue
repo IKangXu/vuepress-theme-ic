@@ -35,7 +35,7 @@ export default {
       if (!progress) {
         progress = 0;
       }
-      this.progressStyle = `transform: scaleX(${progress})`;
+      this.progressStyle = `transform: scaleX(${progress});width: 100%`;
     }
   }
 };
@@ -49,7 +49,7 @@ export default {
   background transparent
   overflow hidden
   .progress
-    width 100%
+    width 0%
     height 100%
     background $accentColor
     background-image none
