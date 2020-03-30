@@ -20,7 +20,7 @@
         <Reprint />
         <Sponsor />
         <PageEdit />
-        <div class="valine-ic-comment">
+        <div class="valine-ic-comment" v-if="comment">
           <Comment />
         </div>
       </div>
@@ -66,6 +66,14 @@ export default {
         show: false
       }
     };
+  },
+  computed: {
+    comment() {
+      if(this.$page.frontmatter.comment === undefined) {
+        return true;
+      }
+      return this.$page.frontmatter.comment;
+    }
   },
   watch: {
     screenWidth(val) {

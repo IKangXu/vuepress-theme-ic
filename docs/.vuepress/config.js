@@ -3,6 +3,9 @@ module.exports = {
   title: "Narrow road meet, code revere win.",
   // 博客描述
   description: "码,需清心寡欲",
+  head: [
+    ['link', { rel: 'icon', href: '/ikangxu.jpg' }]
+  ],
   theme: require.resolve("../../theme/"),
   themeConfig: {
     // 设置logo

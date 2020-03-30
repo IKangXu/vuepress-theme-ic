@@ -3,10 +3,9 @@
 </template>
 
 <script>
-import ejs from 'ejs'
-const commentDomID = "vuepress-plugin-comment";
-let timer = null;
-let Gitalk, Valine;
+import ejs from "ejs";
+const commentDomID = "valine-ic-comment";
+let Valine, cnt=0;
 
 export default {
   name: "Comment",
@@ -15,25 +14,25 @@ export default {
       return this.$themeConfig.comment;
     }
   },
-  beforeMount() {
-    if (this.commentConfig.choosen === "valine") {
-      import("valine").then(pkg => (Valine = pkg.default));
-    } else if (this.commentConfig.choosen === "gitalk") {
-      import("gitalk/dist/gitalk.css")
-        .then(() => import("gitalk"))
-        .then(pkg => (Gitalk = pkg.default));
-    }
-  },
   mounted() {
     let _this = this;
-    timer = setTimeout(() => {
-      const frontmatter = {
-        to: {},
-        from: {},
-        ...this.$frontmatter
-      };
-      _this.clear() && _this.needComment(frontmatter) && _this.renderComment(frontmatter);
-    }, 1000);
+
+    if (this.commentConfig.choosen === "valine") {
+      import("valine").then(pkg => {
+        Valine = pkg.default;
+        if (cnt === 0) {
+          const frontmatter = {
+            to: {},
+            from: {},
+            ...this.$frontmatter
+          };
+          _this.clear() &&
+            _this.needComment(frontmatter) &&
+            _this.renderComment(frontmatter);
+        }
+        cnt ++;
+      });
+    }
 
     _this.$router.afterEach((to, from) => {
       if (to && from && to.path === from.path) {
@@ -44,20 +43,20 @@ export default {
         from,
         ...this.$frontmatter
       };
-      _this.clear() && _this.needComment(frontmatter) && _this.renderComment(frontmatter);
+      _this.clear() &&
+        _this.needComment(frontmatter) &&
+        _this.renderComment(frontmatter);
     });
   },
   methods: {
     clear(frontmatter) {
       switch (this.commentConfig.choosen) {
-        case "gitalk":
-          return provider.gitalk.clear(commentDomID);
         case "valine":
           let el = this.commentConfig.options.el || commentDomID;
           if (el.startsWith("#")) {
             el = el.slice(1);
           }
-          return provider.valine.clear(el);
+          return clear(el);
         default:
           return false;
       }
@@ -66,92 +65,65 @@ export default {
       return frontmatter.comment !== false && frontmatter.comments !== false;
     },
     renderComment(frontmatter) {
-      clearTimeout(timer);
-
-      const parentDOM = document.querySelector(this.commentConfig.container);
-      if (!parentDOM) {
-        timer = setTimeout(() => renderComment(frontmatter), 200);
-        return;
-      }
+      let _this = this;
 
       switch (this.commentConfig.choosen) {
-        case "gitalk":
-          return provider.gitalk.render(frontmatter, commentDomID, this.commentConfig.options, this.commentConfig.container);
         case "valine":
           let el = this.commentConfig.options.el || commentDomID;
           if (el.startsWith("#")) {
             el = el.slice(1);
           }
-          return provider.valine.render(frontmatter, el, this.commentConfig.options, this.commentConfig.container);
+          return render(
+            frontmatter,
+            el,
+            this.commentConfig.options,
+            this.commentConfig.container
+          );
         default:
           return false;
       }
     }
   }
 };
-function renderConfig (config, data) {
-  const result = {}
 
-  Reflect.ownKeys(config)
-    .forEach(key => {
-      if (typeof config[key] === 'string') {
-        try {
-          result[key] = ejs.render(config[key], data)
-        } catch (error) {
-          console.warn(`Comment config option error at key named "${key}"`)
-          console.warn(`More info: ${error.message}`)
-          result[key] = config[key]
-        }
-      } else {
-        result[key] = config[key]
+function renderConfig(config, data) {
+  const result = {};
+
+  Reflect.ownKeys(config).forEach(key => {
+    if (typeof config[key] === "string") {
+      try {
+        result[key] = ejs.render(config[key], data);
+      } catch (error) {
+        console.warn(`Comment config option error at key named "${key}"`);
+        console.warn(`More info: ${error.message}`);
+        result[key] = config[key];
       }
-    })
-  
-  return result
+    } else {
+      result[key] = config[key];
+    }
+  });
+
+  return result;
 }
-const provider = {
-  gitalk: {
-    render (frontmatter, commentDomID, options, container) {
-      const commentDOM = document.createElement('div')
-      commentDOM.id = commentDomID
+function render(frontmatter, commentDomID, options, container) {
+  const commentDOM = document.createElement("div");
+  commentDOM.id = commentDomID;
 
-      const parentDOM = document.querySelector(container)
-      parentDOM.appendChild(commentDOM)
-      
-      const gittalk = new Gitalk(renderConfig(options, { frontmatter }))
-      gittalk.render(commentDomID)
-    },
-    clear (commentDomID) {
-      const last = document.querySelector(`#${commentDomID}`)
-      if (last) {
-        last.remove()
-      }
-      return true
-    }
-  },
-  valine: {
-    render (frontmatter, commentDomID, options, container) {
-      const commentDOM = document.createElement('div')
-      commentDOM.id = commentDomID
+  const parentDOM = document.querySelector(container);
+  parentDOM.appendChild(commentDOM);
 
-      const parentDOM = document.querySelector(container)
-      parentDOM.appendChild(commentDOM)
-
-      new Valine({
-        ...options,
-        path: frontmatter.to.path,
-        el: `#${commentDomID}`
-      })
-    },
-    clear (commentDomID) {
-      const last = document.querySelector(`#${commentDomID}`)
-      if (last) {
-        last.remove()
-      }
-      return true
-    }
-  },
-  vssue: {}
+  new Valine({
+    ...options,
+    path: frontmatter.to.path,
+    el: `#${commentDomID}`
+  });
+}
+function clear(commentDomID) {
+  const last = document.querySelector(`#${commentDomID}`);
+  if (last) {
+    last.remove();
+  }
+  return true;
 }
 </script>
 <style lang="stylus">
@@ -171,7 +143,7 @@ const provider = {
       border: 1px dashed #eaecef
       .vcontrol .vsubmit
         background: rgba(27, 31, 35, 0.05)
-      .vheader 
+      .vheader
         .vinput
           border: 1px dashed #dedede
     .vinfo
@@ -223,4 +195,3 @@ const provider = {
     .info
       padding-right: .6rem
 </style>
-

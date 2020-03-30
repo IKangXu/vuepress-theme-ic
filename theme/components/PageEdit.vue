@@ -116,6 +116,7 @@ export default {
   min-width 200px
   .edit-link
     display inline-block
+    font-size 0.9em
     a
       color lighten($accentColor, 25%)
       margin-right 0.25rem
@@ -128,4 +129,13 @@ export default {
     .time
       font-weight 400
       color #aaa
+@media (max-width: $MQMobile)
+  .page-edit
+    .edit-link
+      font-size 0.8em
+      margin-bottom 0.5rem
+    .last-updated
+      font-size 0.8em
+      float none
+      text-align left
 </style>
