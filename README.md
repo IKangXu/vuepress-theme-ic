@@ -125,8 +125,8 @@ module.exports = {
       // options选项中的所有参数，会传给Valine的配置
       options: {
         el: "#valine-ic-comment",
-        appId: "Y34cUjWPqzbPWKc1Ua5UGDqn-gzGzoHsz",
-        appKey: "cKSTywqJYCSmbHPYbwaOC23d",
+        appId: "xxxx",
+        appKey: "xxxx",
         notify: false,
         visitor: true,
         placeholder: "just go go"
