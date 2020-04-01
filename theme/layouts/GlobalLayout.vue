@@ -250,6 +250,8 @@ export default {
       background-color #ffffff
       // p,.custom-block.tip
       //   margin 0
+      img
+	      max-width 100%
     #valine-ic-comment
       background-color #fff
       max-width 1000px
