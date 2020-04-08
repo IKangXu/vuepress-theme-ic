@@ -71,7 +71,7 @@ export default {
         user-select none
         img
             padding .1rem
-            max-width 10rem
+            max-width 10rem !important
             box-shadow 0px 0 10px rgba(0,0,0,0.35)
             margin 1rem .3rem
 </style>

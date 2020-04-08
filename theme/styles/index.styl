@@ -172,7 +172,9 @@ a.header-anchor
 code, kbd, .line-number
   font-family source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace
 
-p code, li code 
+p code, li code, td code 
+    word-break break-all
+    word-wrap break-word
     font-weight bold
     margin 0 2px !important
     color #e96900 !important
@@ -193,7 +195,7 @@ hr
 table
   border-collapse collapse
   margin 1rem 0
-  display: block
+  // display: block
   overflow-x: auto
 
 tr

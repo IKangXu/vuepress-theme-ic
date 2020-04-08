@@ -151,7 +151,7 @@ export default {
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
-        width 18rem
+        width 100%
     .abstract
         font-size .8rem
         color #9E9E9E
