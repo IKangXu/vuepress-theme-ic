@@ -157,6 +157,8 @@ export default {
         color #9E9E9E
         > :first-child
             margin 0
+        li 
+          margin-left 1rem
     .tags
         color #9E9E9E
         display inline-block
