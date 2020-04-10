@@ -16,6 +16,12 @@
           <!-- 摘要 -->
           <span class="abstract" v-html="item.excerpt"></span>
           <!-- 时间，标签，分类等 -->
+          <div class="copyright" v-if="item.frontmatter.reprint">
+            <span>转载</span>
+          </div>
+          <div class="copyright" v-else="item.frontmatter.reprint">
+            <span>原创</span>
+          </div>
           <div class="author" v-if="author(item)">
             <i class="item-icon iconfont iconmian-renwu">
               &nbsp;<span>{{ item | getAuthor($themeConfig.author) }} </span>
@@ -152,6 +158,18 @@ export default {
         text-overflow ellipsis
         white-space nowrap
         width 100%
+    .copyright
+        background #f2f2f2
+        color rgba(0,0,0,0.3)
+        display inline-block
+        vertical-align text-bottom
+        padding 0 .5em
+        font-size 12px
+        line-height 1.67
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        word-wrap normal
     .abstract
         font-size .8rem
         color #9E9E9E

@@ -3,6 +3,12 @@
     <div class="note-info" v-if="currentNote.title !== 'Home'">
       <h2>{{ currentNote.title }}</h2>
       <!-- 时间，标签，分类等 -->
+      <div class="copyright" v-if="currentNote.frontmatter.reprint">
+        <span>转载</span>
+      </div>
+      <div class="copyright" v-else="currentNote.frontmatter.reprint">
+        <span>原创</span>
+      </div>
       <div class="author" v-if="author">
         <i class="item-icon iconfont iconmian-renwu">
           &nbsp;<span>{{ author }} </span>
@@ -96,6 +102,18 @@ export default {
       font-size .5rem
       .iconfont
         font-size .8rem
+  .copyright
+      background #f2f2f2
+      color rgba(0,0,0,0.3)
+      display inline-block
+      vertical-align bottom
+      padding 0 .5em
+      font-size 12px
+      line-height 1.67
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      word-wrap normal
   .time
       display inline-block
       font-size .5rem
