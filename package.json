@@ -23,5 +23,20 @@
     "gitalk-fix": "^1.5.2",
     "moment": "^2.24.0",
     "valine": "^1.3.10"
-  }
+  },
+  "description": ":tada::tada::tada: A note-style vuepress blog theme with simple, clear and practical features for the purpose",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IKangXu/vuepress-theme-ic.git"
+  },
+  "keywords": [
+    "vuepress"
+  ],
+  "bugs": {
+    "url": "https://github.com/IKangXu/vuepress-theme-ic/issues"
+  },
+  "homepage": "https://github.com/IKangXu/vuepress-theme-ic#readme"
 }
