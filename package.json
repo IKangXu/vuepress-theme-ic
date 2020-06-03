@@ -1,6 +1,6 @@
 {
   "name": "vuepress-theme-ic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "author": "IKangxu <ikangxu@outlook.com>",
   "license": "MIT",
@@ -8,16 +8,15 @@
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "@vuepress/plugin-blog": "^1.7.0",
     "@vuepress/plugin-medium-zoom": "^1.4.0",
     "docsearch.js": "^2.5.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vuepress": "^1.2.0",
-    "lodash": "^4.17.15"
-  },
-  "dependencies": {
+    "lodash": "^4.17.15",
     "ejs": "^2.6.1",
     "gitalk": "^1.5.0",
     "gitalk-fix": "^1.5.2",
@@ -32,9 +31,6 @@
     "type": "git",
     "url": "git+https://github.com/IKangXu/vuepress-theme-ic.git"
   },
-  "keywords": [
-    "vuepress"
-  ],
   "bugs": {
     "url": "https://github.com/IKangXu/vuepress-theme-ic/issues"
   },
